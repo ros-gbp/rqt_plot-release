@@ -1,0 +1,12 @@
+Source: ros-lunar-rqt-plot
+Section: misc
+Priority: extra
+Maintainer: Dirk Thomas <dthomas@osrfoundation.org>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-catkin
+Homepage: http://wiki.ros.org/rqt_plot
+Standards-Version: 3.9.2
+
+Package: ros-lunar-rqt-plot
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-matplotlib, python-numpy, python-rospkg, ros-lunar-python-qt-binding (>= 0.2.19), ros-lunar-qt-gui-py-common (>= 0.2.25), ros-lunar-qwt-dependency, ros-lunar-rosgraph, ros-lunar-rostopic, ros-lunar-rqt-gui, ros-lunar-rqt-gui-py, ros-lunar-rqt-py-common, ros-lunar-std-msgs
+Description: rqt_plot provides a GUI plugin visualizing numeric values in a 2D plot using different plotting backends.
