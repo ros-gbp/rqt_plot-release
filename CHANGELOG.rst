@@ -2,6 +2,34 @@
 Changelog for package rqt_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.13 (2021-02-23)
+-------------------
+* Fix resize bug. Set minimum size of MatDataPlot's Canvas (`#69 <https://github.com/ros-visualization/rqt_plot/issues/69>`_)
+* Update maintainers
+* Replace string.atoi with int() (`#57 <https://github.com/ros-visualization/rqt_plot/issues/57>`_)
+* Contributors: Felix Exner, Mabel Zhang, Robert Haschke
+
+0.4.12 (2020-05-22)
+-------------------
+* readd rqt_plot global executable, regression from 0.4.11 (`#60 <https://github.com/ros-visualization/rqt_plot/issues/60>`_)
+
+0.4.11 (2020-05-20)
+-------------------
+* use catkin_install_python() (`#59 <https://github.com/ros-visualization/rqt_plot/issues/59>`_)
+* fix "bottom cannot be >= top" matplotlib error (`#52 <https://github.com/ros-visualization/rqt_plot/issues/52>`_)
+
+0.4.10 (2020-03-11)
+-------------------
+* bump CMake minimum version to avoid CMP0048 warning
+* add Python 3 conditional dependencies (`#41 <https://github.com/ros-visualization/rqt_plot/issues/41>`_)
+* fix KeyError when curves are removed concurrently (`#37 <https://github.com/ros-visualization/rqt_plot/issues/37>`_)
+
+0.4.9 (2019-03-14)
+------------------
+* avoid crash for unknown message types (`#26 <https://github.com/ros-visualization/rqt_plot/issues/26>`_)
+* autopep8 (`#15 <https://github.com/ros-visualization/rqt_plot/issues/15>`_)
+* support pyqtgraph < 0.10 (`#13 <https://github.com/ros-visualization/rqt_plot/issues/13>`_)
+
 0.4.8 (2017-04-24)
 ------------------
 * add scroll area when showing images with 1-to-1 mapping (`#433 <https://github.com/ros-visualization/rqt_common_plugins/issues/433>`_)

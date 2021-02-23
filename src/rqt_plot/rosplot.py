@@ -33,7 +33,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 
-import string
 import sys
 import threading
 import time
@@ -89,6 +88,7 @@ def get_topic_type(topic):
 
 
 class ROSData(object):
+
     """
     Subscriber to ROS topic that buffers incoming data
     """
@@ -122,12 +122,12 @@ class ROSData(object):
             self.lock.acquire()
             try:
                 self.buff_y.append(self._get_data(msg))
-                # #944: use message header time if present
+                # 944: use message header time if present
                 if msg.__class__._has_header:
                     self.buff_x.append(msg.header.stamp.to_sec() - self.start_time)
                 else:
                     self.buff_x.append(rospy.get_time() - self.start_time)
-                #self.axes[index].plot(datax, buff_y)
+                # self.axes[index].plot(datax, buff_y)
             except AttributeError as e:
                 self.error = RosPlotException("Invalid topic spec [%s]: %s" % (self.name, str(e)))
         finally:
@@ -163,7 +163,8 @@ class ROSData(object):
                 val = f(val)
             return float(val)
         except IndexError:
-            self.error = RosPlotException("[%s] index error for: %s" % (self.name, str(val).replace('\n', ', ')))
+            self.error = RosPlotException(
+                "[%s] index error for: %s" % (self.name, str(val).replace('\n', ', ')))
         except TypeError:
             self.error = RosPlotException("[%s] value was not numeric: %s" % (self.name, val))
 
@@ -196,7 +197,7 @@ def generate_field_evals(fields):
         for f in fields:
             if '[' in f:
                 field_name, rest = f.split('[')
-                slot_num = string.atoi(rest[:rest.find(']')])
+                slot_num = int(rest[:rest.find(']')])
                 evals.append(_array_eval(field_name, slot_num))
             else:
                 evals.append(_field_eval(f))
