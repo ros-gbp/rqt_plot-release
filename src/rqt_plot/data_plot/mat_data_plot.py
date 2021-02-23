@@ -92,19 +92,38 @@ import numpy
 
 
 class MatDataPlot(QWidget):
+
     class Canvas(FigureCanvas):
+
         """Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
+
         def __init__(self, parent=None):
             super(MatDataPlot.Canvas, self).__init__(Figure())
             self.axes = self.figure.add_subplot(111)
             self.axes.grid(True, color='gray')
-            self.figure.tight_layout()
+            self.safe_tight_layout()
             self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            self.setMinimumSize(1,1)
             self.updateGeometry()
 
         def resizeEvent(self, event):
             super(MatDataPlot.Canvas, self).resizeEvent(event)
-            self.figure.tight_layout()
+            self.safe_tight_layout()
+
+        def safe_tight_layout(self):
+            """
+            Deal with "ValueError: bottom cannot be >= top" bug in older matplotlib versions
+            (before v2.2.3)
+
+            References:
+                - https://github.com/matplotlib/matplotlib/pull/10915
+                - https://github.com/ros-visualization/rqt_plot/issues/35
+            """
+            try:
+                self.figure.tight_layout()
+            except ValueError:
+                if parse_version(matplotlib.__version__) >= parse_version('2.2.3'):
+                    raise
 
     limits_changed = Signal()
 
@@ -133,7 +152,8 @@ class MatDataPlot(QWidget):
             marker_size = 3
         else:
             marker_size = 0
-        line = self._canvas.axes.plot([], [], 'o-', markersize=marker_size, label=curve_name, linewidth=1, picker=5, color=curve_color.name())[0]
+        line = self._canvas.axes.plot([], [], 'o-', markersize=marker_size, label=curve_name,
+                                      linewidth=1, picker=5, color=curve_color.name())[0]
         self._curves[curve_id] = line
         self._update_legend()
         self.set_xlim(x_limits)
@@ -162,8 +182,8 @@ class MatDataPlot(QWidget):
         self._canvas.draw()
 
     def vline(self, x, color):
-        # convert color range from (0,255) to (0,1.0) 
-        matcolor=(color[0]/255.0, color[1]/255.0, color[2]/255.0)
+        # convert color range from (0,255) to (0,1.0)
+        matcolor = (color[0] / 255.0, color[1] / 255.0, color[2] / 255.0)
         if self._current_vline:
             self._current_vline.remove()
         self._current_vline = self._canvas.axes.axvline(x=x, color=matcolor)
