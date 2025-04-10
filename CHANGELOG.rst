@@ -2,6 +2,16 @@
 Changelog for package rqt_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.15 (2025-04-10)
+-------------------
+* Import setup from setuptools instead of distutils.core (`#86 <https://github.com/ros-visualization/rqt_plot/issues/86>`_)
+* Contributors: Arne Hitzmann, Matthijs van der Burgh
+
+0.4.14 (2021-12-03)
+-------------------
+* Fix Qwt plot engine (`#70 <https://github.com/ros-visualization/rqt_plot/issues/70>`_)
+* Contributors: Robert Haschke
+
 0.4.13 (2021-02-23)
 -------------------
 * Fix resize bug. Set minimum size of MatDataPlot's Canvas (`#69 <https://github.com/ros-visualization/rqt_plot/issues/69>`_)
